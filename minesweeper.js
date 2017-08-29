@@ -139,6 +139,7 @@ function Minesweeper(height, width, mines) {
         root.getElementsByClassName("picture-face")[0].onclick = function (event) {
             if (event.which == 1) { //left button
                 resetGame();
+                callbacks.onReset();
             }
         };
 
@@ -299,6 +300,9 @@ function Minesweeper(height, width, mines) {
     };
     this.setOnWin = function (onWin) {
         callbacks.onWin = onWin;
+    };
+    this.setOnReset = function (onReset) {
+        callbacks.onReset = onReset;
     };
 
     //mine counter

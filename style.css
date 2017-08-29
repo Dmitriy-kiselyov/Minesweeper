@@ -1,0 +1,67 @@
+.content {
+    font-size: 100%;
+    font-family: monospace;
+}
+
+.header {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.settings {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.settings_block {
+    display: inline-block;
+    text-align: left;
+}
+
+.settings_block:first-child {
+    margin-right: 25px;
+}
+
+.settings_block:last-child {
+    margin-left: 25px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 10px;
+
+    font-size: 1.5rem;
+}
+
+.select {
+    font-size: 0.8rem;
+}
+
+.info {
+    font-size: 0.9rem;
+    color: gray;
+}
+
+.game-wrapper {
+    text-align: center;
+}
+
+.status {
+    vertical-align: middle;
+    font-style: italic;
+    font-size: 1.5rem;
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.status-win {
+    color: green;
+}
+
+.status-gameover {
+    color: darkred;
+}

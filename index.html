@@ -3,21 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <title>Minesweeper</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="minesweeper.css">
     <script src="minesweeper.js"></script>
 </head>
 <body>
 
+<div class="content">
+    <div class="header">СапЁр</div>
+    <div class="settings">
+        <div class="settings_block">
+            <label for="difficulty" class="label">Выберите сложность</label>
+            <select class="select" id="difficulty" onchange="createGame(); updateGameParamsInfo()">
+                <option selected value="8,8,10" info="8x8, 10 мин">Изи</option>
+                <option value="16,16,40" info="16x16, 40 мин">Рил ток</option>
+                <option value="16,30,99" info="16x30, 99 мин">Синк эбаут ит</option>
+            </select>
+            <span class="info" id="info">8x8, 10 мин</span>
+        </div>
+        <div class="settings_block">
+            <label for="size" class="label">Размер</label>
+            <select class="select" id="size" onchange="changeGameSize()">
+                <option value="20">Малютка</option>
+                <option value="25">Небольшой</option>
+                <option selected value="30">Средний</option>
+                <option value="35">Большой</option>
+                <option value="40">Огромный</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="game-wrapper" id="game-wrapper"></div>
+    <p class="status status-gameover" id="status"></p>
+</div>
+
 <script>
-    var game = new Minesweeper(8, 8, 10);
 
-    var field = game.getElement();
+    var game;
+    createGame();
 
-    var wrapper = document.createElement("div");
-    wrapper.style.textAlign = "center";
-    wrapper.appendChild(field);
+    function getGameParams() {
+        var select = document.getElementById("difficulty");
+        var params = select.options[select.selectedIndex].value;
+        params = params.split(",");
+        return {
+            height: params[0],
+            width: params[1],
+            mines: params[2]
+        };
+    }
 
-    document.body.appendChild(wrapper);
+    function updateGameParamsInfo() {
+        var select = document.getElementById("difficulty");
+        var param = select.options[select.selectedIndex].getAttribute("info");
+
+        var info = document.getElementById("info");
+        info.textContent = param;
+    }
+
+    function changeGameSize() {
+        var select = document.getElementById("size");
+        var size = select.options[select.selectedIndex].value + "px";
+
+        var game = document.getElementById("game");
+        game.style.fontSize = size;
+    }
+
+    function parseTime(time) {
+        var ms = time % 1000;
+        var sec = Math.floor(time / 1000);
+        return sec + "." + ms;
+    }
+
+    function createGame() {
+        var params = getGameParams();
+        game = new Minesweeper(params.height, params.width, params.mines);
+
+        //listeners
+        game.setOnWin(function (time) {
+            time = parseTime(time);
+            var status = document.getElementById("status");
+            status.className = "status status-win";
+            status.textContent = "Победа! За " + time + " мс";
+        });
+        game.setOnGameOver(function () {
+            var status = document.getElementById("status");
+            status.className = "status status-gameover";
+            status.textContent = "Програв. Ещё?"
+        });
+        game.setOnReset(function () {
+            var status = document.getElementById("status");
+            status.textContent = ""
+        });
+
+        //put into DOM
+        var root = game.getElement();
+        root.id = "game";
+
+        var container = document.getElementById("game-wrapper");
+        container.innerHTML = "";
+
+        container.appendChild(root);
+        changeGameSize();
+
+        //clear status
+        document.getElementById("status").textContent = "";
+    }
+
 </script>
 
 </body>
