@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="minesweeper.css">
+    <script src="minesweeper.js"></script>
+</head>
+<body>
+
+<script>
+    var game = new Minesweeper(8, 8, 10);
+
+    var field = game.getElement();
+
+    var wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    wrapper.appendChild(field);
+
+    document.body.appendChild(wrapper);
+</script>
+
+</body>
+</html>

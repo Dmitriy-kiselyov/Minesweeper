@@ -1,0 +1,156 @@
+.minesweeper {
+    display: inline-block;
+    background-color: #333;
+    border-radius: 5px;
+
+    /*size for all elements*/
+    font-size: 30px;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+/*head*/
+
+.minesweeper .head {
+    overflow: auto;
+    padding: 2px 5px;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.minesweeper .left {
+    float: left;
+}
+
+.minesweeper .right {
+    float: right;
+}
+
+.minesweeper .mine-counter,
+.minesweeper .timer {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 0.9em;
+    vertical-align: middle;
+}
+
+/*head icons*/
+
+.minesweeper .picture {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    vertical-align: middle;
+}
+
+.minesweeper .picture-mine {
+    background: url(icons/fuse.svg);
+}
+
+.minesweeper .picture-clock {
+    background: url(icons/alarm-clock.svg);
+}
+
+/*face*/
+
+.minesweeper .picture-face {
+    width: 0.9em;
+    height: 0.9em;
+    cursor: pointer;
+}
+
+.minesweeper .face-smile {
+    background: url(icons/face-smile.svg);
+}
+
+.minesweeper .face-gameover {
+    background: url(icons/face-gameover.svg);
+}
+
+.minesweeper .face-win {
+    background: url(icons/face-win.svg);
+}
+
+/*field*/
+
+.minesweeper .field {
+    padding: 2px;
+}
+
+.minesweeper .line {
+    white-space: nowrap;
+
+}
+
+.minesweeper .cell {
+    display: inline-block;
+    overflow: hidden;
+
+    vertical-align: top;
+
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 15%;
+    border: 1px solid black;
+    cursor: default;
+
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.1em;
+
+    transition: background-color 300ms, box-shadow 300ms;
+}
+
+.minesweeper .cell.unknown {
+    background-color: lightskyblue;
+    box-shadow: inset 0 0 0.15em 0.1em steelblue;
+    cursor: pointer;
+}
+
+.minesweeper.inactive .cell.unknown {
+    cursor: default;
+}
+
+.minesweeper .cell.open {
+    background-color: white;
+    box-shadow: inset 0 0 0.15em 0.1em lightgray;
+}
+
+.minesweeper .cell.flag {
+    background: #fdff94 url(icons/flag.svg) no-repeat center;
+    background-size: 80%;
+    box-shadow: inset 0 0 0.15em 0.1em #dadc4c;
+    cursor: pointer;
+}
+
+.minesweeper.inactive .cell.flag {
+    cursor: default;
+}
+
+.minesweeper .cell.mine {
+    background: white url(icons/bomb.svg) no-repeat center;
+    background-size: 80%;
+    box-shadow: inset 0 0 0.15em 0.1em lightgray;
+}
+
+.minesweeper .cell.flag-wrong {
+    background: url(icons/cross.svg), url(icons/bomb.svg) no-repeat center, #fdff94;
+    background-size: 100%, 80%;
+    box-shadow: inset 0 0 0.15em 0.1em #dadc4c;
+}
+
+.minesweeper .cell.blast {
+    background: white url(icons/explosion.svg) no-repeat center;
+    background-size: 80%;
+    box-shadow: inset 0 0 0.15em 0.1em lightgray;
+}
+
+.minesweeper .cell.wrong {
+    background-color: indianred;
+    box-shadow: inset 0 0 0.15em 0.1em red;
+}
