@@ -2,6 +2,7 @@
     display: inline-block;
     background-color: #333;
     border-radius: 5px;
+    padding: 5px;
 
     transition: font-size 100ms ease;
 
@@ -18,6 +19,8 @@
 /*head*/
 
 .minesweeper .head {
+    position: relative; /*for picture-face*/
+
     overflow: auto;
     padding: 2px 5px;
     color: whitesmoke;
@@ -62,6 +65,12 @@
 /*face*/
 
 .minesweeper .picture-face {
+    position: absolute;
+    left: 50%;
+    margin-left: -0.5em;
+    top: 50%;
+    margin-top: -0.5em;
+
     cursor: pointer;
     width: 1em;
     height: 1em;
