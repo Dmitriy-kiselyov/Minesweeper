@@ -1,8 +1,8 @@
 .minesweeper {
     display: inline-block;
     background-color: #333;
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 0.2em;
+    padding: 0.15em;
 
     transition: font-size 100ms ease;
 
@@ -22,7 +22,7 @@
     position: relative; /*for picture-face*/
 
     overflow: auto;
-    padding: 2px 5px;
+    padding: 0.05em 0.15em;
     color: whitesmoke;
     text-align: center;
 
@@ -58,10 +58,6 @@
     background: url(icons/fuse.svg);
 }
 
-.minesweeper .picture-clock {
-    background: url(icons/alarm-clock.svg);
-}
-
 /*face*/
 
 .minesweeper .picture-face {
@@ -92,7 +88,7 @@
 /*field*/
 
 .minesweeper .field {
-    padding: 2px;
+    padding: 0.05em;
 }
 
 .minesweeper .line {
