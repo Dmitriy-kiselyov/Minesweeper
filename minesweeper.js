@@ -11,6 +11,7 @@ function Minesweeper(height, width, mines) {
     var mineCounter; //createMineCounter()
     var timer; //createTimer()
     var face; //createFace()
+    var sound = createSounds(); //game sounds
 
     resetGame();
 
@@ -270,6 +271,7 @@ function Minesweeper(height, width, mines) {
         setTimeout(function () {
             cell.classList.remove("mine");
             cell.classList.add("blast");
+            sound.bomb();
         }, 0); //todo: animation query
 
         //callback
@@ -280,6 +282,7 @@ function Minesweeper(height, width, mines) {
     function win() {
         timer.stop();
         face.win();
+        sound.win();
 
         root.removeEventListener("click", cellListener);
         root.removeEventListener("contextmenu", cellListener);
@@ -400,6 +403,23 @@ function Minesweeper(height, width, mines) {
             },
             win: function () {
                 set("face-win");
+            }
+        }
+    }
+
+    //sounds
+    function createSounds() {
+        var bomb = new Audio("audio/bomb.mp3");
+        var win = new Audio("audio/win.mp3");
+
+        return {
+            bomb: function () {
+                bomb.currentTime = 0;
+                bomb.play();
+            },
+            win: function () {
+                win.currentTime = 0;
+                win.play();
             }
         }
     }
