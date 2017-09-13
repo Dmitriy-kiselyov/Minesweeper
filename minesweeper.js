@@ -427,12 +427,11 @@ function Minesweeper(height, width, mines) {
 
     //sounds
     function createSounds() {
-        var bomb; // = new Audio("audio/bomb.mp3");
+        var bomb = new SoundFilter("audio/bomb.mp3", 100);
         var win = new Audio("audio/win.mp3");
 
         return {
             bomb: function () {
-                bomb = new Audio("audio/bomb.mp3");
                 bomb.play();
             },
             win: function () {
@@ -459,4 +458,18 @@ function Minesweeper(height, width, mines) {
         }
     }
 
+}
+
+function SoundFilter(sound, time) {
+    //preload
+    new Audio(sound).load();
+
+    var lastTime = 0;
+    this.play = function () {
+        var timePassed = performance.now() - lastTime;
+        if (timePassed > time) {
+            lastTime = performance.now();
+            new Audio(sound).play();
+        }
+    }
 }
