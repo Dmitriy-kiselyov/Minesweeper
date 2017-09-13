@@ -12,6 +12,7 @@ function Minesweeper(height, width, mines) {
     var timer; //createTimer()
     var face; //createFace()
     var sound = createSounds(); //game sounds
+    var animationQueue = createAnimationQueue(); //animation
 
     resetGame();
 
@@ -53,6 +54,7 @@ function Minesweeper(height, width, mines) {
             timer.reset();
         if (face)
             face.smile();
+        animationQueue.clear();
 
         //fill with mines
         function randomInt(n) {
@@ -268,11 +270,27 @@ function Minesweeper(height, width, mines) {
         });
 
         //animate blast
-        setTimeout(function () {
+        var delay = 500; //500ms
+        animationQueue.add(function () {
             cell.classList.remove("mine");
             cell.classList.add("blast");
             sound.bomb();
-        }, 0); //todo: animation query
+        }, delay);
+
+        //animate all bombs blasts
+        delay += 1500; // + 1,5s
+        forAll(function (x1, y1) {
+            var cell = getCell(x1, y1);
+            if (cell.is("mine") && field[x1][y1] == -1) {
+                var dist = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
+
+                animationQueue.add(function () {
+                    cell.classList.remove("mine");
+                    cell.classList.add("blast");
+                    sound.bomb();
+                }, delay + dist * 100); //1 dist = +100ms to delay
+            }
+        });
 
         //callback
         if (callbacks.onGameOver)
@@ -314,7 +332,7 @@ function Minesweeper(height, width, mines) {
         var label = root.getElementsByClassName("mine-counter")[0];
         set(value);
 
-        function set (val) {
+        function set(val) {
             value = val;
             label.textContent = value;
         }
@@ -390,7 +408,7 @@ function Minesweeper(height, width, mines) {
     function createFace() {
         var face = root.getElementsByClassName("picture-face")[0];
 
-        function set (className) {
+        function set(className) {
             face.className = "picture picture-face " + className;
         }
 
@@ -409,17 +427,34 @@ function Minesweeper(height, width, mines) {
 
     //sounds
     function createSounds() {
-        var bomb = new Audio("audio/bomb.mp3");
+        var bomb; // = new Audio("audio/bomb.mp3");
         var win = new Audio("audio/win.mp3");
 
         return {
             bomb: function () {
-                bomb.currentTime = 0;
+                bomb = new Audio("audio/bomb.mp3");
                 bomb.play();
             },
             win: function () {
                 win.currentTime = 0;
                 win.play();
+            }
+        }
+    }
+
+    //animation
+    function createAnimationQueue() {
+        var animations = [];
+
+        return {
+            add: function (func, time) {
+                var id = setTimeout(func, time);
+                animations.push(id);
+            },
+            clear: function () {
+                animations.forEach(function (id) {
+                    clearTimeout(id);
+                });
             }
         }
     }
