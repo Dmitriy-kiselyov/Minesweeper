@@ -73,6 +73,10 @@
     background-size: 100% 100%;
 }
 
+.minesweeper .picture-face:hover:active {
+    background-image: url(icons/face-reset.svg);
+}
+
 .minesweeper .face-smile {
     background-image: url(icons/face-smile.svg);
 }
