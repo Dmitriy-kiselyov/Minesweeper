@@ -13,6 +13,7 @@ function Minesweeper(height, width, mines) {
     var face; //createFace()
     var sound = createSounds(); //game sounds
     var animationQueue = createAnimationQueue(); //animation
+    var callbacks = {};
 
     resetGame();
 
@@ -92,6 +93,10 @@ function Minesweeper(height, width, mines) {
             root.addEventListener("click", cellListener);
             root.addEventListener("contextmenu", cellListener);
         }
+
+        //callback
+        if (callbacks.onReset)
+            callbacks.onReset();
     }
 
     function getElement() {
@@ -139,12 +144,6 @@ function Minesweeper(height, width, mines) {
         //add event listeners
         root.addEventListener("click", cellListener);
         root.addEventListener("contextmenu", cellListener);
-        root.getElementsByClassName("picture-face")[0].onclick = function (event) {
-            if (event.which == 1) { //left button
-                resetGame();
-                callbacks.onReset();
-            }
-        };
 
         //init components
         mineCounter = createMineCounter();
@@ -315,7 +314,6 @@ function Minesweeper(height, width, mines) {
     this.getElement = getElement;
 
     //callbacks
-    var callbacks = {};
     this.setOnGameOver = function (onGameOver) {
         callbacks.onGameOver = onGameOver;
     };
@@ -407,6 +405,40 @@ function Minesweeper(height, width, mines) {
     //face
     function createFace() {
         var face = root.getElementsByClassName("picture-face")[0];
+        var tooltip = root.getElementsByClassName("reset_tooltip")[0];
+        var field = root.getElementsByClassName("field")[0];
+
+        face.onclick = function () {
+            if (face.classList.contains("face-gameover") || face.classList.contains("face-win")) {
+                resetGame();
+                return;
+            }
+
+            //game is not over yet, ask again
+            tooltip.hidden = false;
+            set("face-reset");
+
+            var onclick = this.onclick;
+
+            function restore() {
+                set("face-smile");
+                tooltip.hidden = true;
+                face.onclick = onclick;
+                field.removeEventListener("click", restore);
+                if (timeoutId)
+                    clearTimeout(timeoutId);
+            }
+
+            var timeoutId = setTimeout(restore, 3000);
+
+            face.onclick = function () {
+                restore();
+                clearTimeout(timeoutId);
+                resetGame();
+            };
+
+            field.addEventListener("click", restore);
+        };
 
         function set(className) {
             face.className = "picture picture-face " + className;

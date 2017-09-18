@@ -19,7 +19,7 @@
 /*head*/
 
 .minesweeper .head {
-    position: relative; /*for picture-face*/
+    position: relative; /*for picture-face and modal window*/
 
     overflow: auto;
     padding: 0.05em 0.15em;
@@ -73,10 +73,6 @@
     background-size: 100% 100%;
 }
 
-.minesweeper .picture-face:hover:active {
-    background-image: url(icons/face-reset.svg);
-}
-
 .minesweeper .face-smile {
     background-image: url(icons/face-smile.svg);
 }
@@ -87,6 +83,10 @@
 
 .minesweeper .face-win {
     background-image: url(icons/face-win.svg);
+}
+
+.minesweeper .face-reset {
+    background-image: url(icons/face-reset.svg);
 }
 
 /*field*/
@@ -167,4 +167,77 @@
 .minesweeper .cell.wrong {
     background-color: indianred;
     box-shadow: inset 0 0 0.15em 0.1em red;
+}
+
+/*Reset question modal*/
+.minesweeper .reset_tooltip {
+    position: absolute;
+    z-index: 10;
+    opacity: 0.9;
+
+    top: 5px;
+    left: 50%;
+    font-size: 0.45em;
+    width: 10em;
+    margin-left: -5em;
+    box-sizing: border-box;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+    background: white;
+    padding: 5px;
+    color: black;
+    cursor: default;
+    text-align: center;
+
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*Треугольники*/
+.minesweeper .reset_tooltip:before {
+    content: "";
+    position: absolute;
+
+    top: -0.5em;
+    left: 50%;
+    margin-left: -0.5em;
+
+    width: 0;
+    height: 0;
+
+    border-left: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+    border-bottom: 0.5em solid gray;
+}
+
+.minesweeper .reset_tooltip:after {
+    content: "";
+    position: absolute;
+
+    top: -0.45em;
+    left: 50%;
+    margin-left: -0.45em;
+
+    width: 0;
+    height: 0;
+
+    border-left: 0.45em solid transparent;
+    border-right: 0.45em solid transparent;
+    border-bottom: 0.45em solid white;
+}
+
+/*Анимация появления*/
+@keyframes zoom {
+    from {
+        transform: scale(0.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.minesweeper .reset_tooltip {
+    animation-name: zoom;
+    animation-duration: 300ms;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
