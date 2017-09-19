@@ -280,7 +280,7 @@ function Minesweeper(height, width, mines) {
         delay += 1500; // + 1,5s
         forAll(function (x1, y1) {
             var cell = getCell(x1, y1);
-            if (cell.is("mine") && field[x1][y1] == -1) {
+            if (cell.is("mine") && field[x1][y1] == -1 && (x1 != x || y1 != y)) {
                 var dist = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
 
                 animationQueue.add(function () {
