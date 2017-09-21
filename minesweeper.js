@@ -425,6 +425,7 @@ function Minesweeper(height, width, mines) {
                 tooltip.hidden = true;
                 face.onclick = onclick;
                 field.removeEventListener("click", restore);
+                field.removeEventListener("contextmenu", restore);
                 if (timeoutId)
                     clearTimeout(timeoutId);
             }
@@ -438,6 +439,7 @@ function Minesweeper(height, width, mines) {
             };
 
             field.addEventListener("click", restore);
+            field.addEventListener("contextmenu", restore);
         };
 
         function set(className) {
