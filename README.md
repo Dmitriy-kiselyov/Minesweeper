@@ -27,4 +27,4 @@
 #### 4) Анимация
 Хороший стиль, анимация и управление – да в мою игру просто очень приятно играть!
 
-![Imgur](https://i.imgur.com/H4DDvHb.gifv)
+![Imgur](https://i.imgur.com/H4DDvHb.gif)
