@@ -1,34 +1,34 @@
 # Minesweeper
-Дело было вечером. Я сидел и думал, что бы такое написать, чтобы отточить свой JS.
-В поисках идеи наткнулся на сайт с играми, среди прочих был сапер (с закосом под Windows XP).
-Однако, к моему разочарованию, он был слишком плохо анимирован и уродлив (растянутые png-картинки всего).
-Как оказалось, слишком мало в интернете нашлось хороших реализаций сапёра, и я решил написать свой.
+Well, and here goes another minesweeper widget. But this one is
+way better then those on the Internet.
 
-Чем же мой сапёр лучше?
+Better how?
 
-### 1) Легко масштабируется
+### 1) Easy scaling
 
 ![Imgur](https://i.imgur.com/bHHaJzY.png)
 
-Игра в качестве единицы измерения использует _em_, что позволяет легко менять размер всего лишь изменив
-стиль родителя
-`style = "font-size = _ px"`.
-Другие же игры были замечены в том, что запускали цикл, который менял размер каждой ячейки.
+Game uses _em_ unit for sizing, allowing fluent scaling with __pure css__.
+All you need is just changing parent size with `style = "font-size = _ px"` (equal to cell size).
 
-### 2) Всегда четкое изображение
+### 2) Clear image on every screen
 
 ![Imgur](https://i.imgur.com/tp1bhRv.png)
 
-Игра использует __svg-графику__, что позволяет без изменения качества картинки увеличивать и уменьшать
-игровое поле.
+Game uses __svg-graphics__ so it allows stretching game field without quality loss.
 
-### 3) Может использовать кто угодно
-Игру на странице без особых усилий может разместить кто угодно (1 строчка кода).
-Игра использует колбэки для уведомления об успехах игрока (строчка была выведена НЕ игрой)
+### 3) Uses callbacks
+Allows user to subscribe for 3 event types:
+- `onGameOver(cb(time))`
+- `onWin(cb(time))`
+- `onReset(cb)`
 
 ![Imgur](https://i.imgur.com/ZH5s4VM.png)
+(Bottom line was printed with callback).
 
-### 4) Анимация
-Хороший стиль, анимация и управление – да в мою игру просто очень приятно играть!
+### 4) Animation
+Good design, fluent animations and control
 
 ![Imgur](https://i.imgur.com/H4DDvHb.gif)
+
+You can play this game by this [link]( https://dmitriy-kiselyov.github.io/Minesweeper/).
