@@ -15,6 +15,8 @@ function Minesweeper(height, width, mines) {
     var animationQueue = createAnimationQueue(); //animation
     var callbacks = {};
 
+    preloadImages('icons/fuse.svg', 'icons/face-smile.svg', 'icons/face-gameover.svg', 'icons/face-win.svg',
+        'icons/face-reset.svg', 'icons/flag.svg', 'icons/cross.svg', 'icons/bomb.svg', 'icons/explosion.svg');
     resetGame();
 
     function createMatrix(height, width) {
@@ -506,4 +508,11 @@ function SoundFilter(sound, time) {
             new Audio(sound).play();
         }
     }
+}
+
+function preloadImages() {
+    Array.prototype.forEach.call(arguments, function (imagePath) {
+        var image = new Image();
+        image.src = imagePath;
+    });
 }
