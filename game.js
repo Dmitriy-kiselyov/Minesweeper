@@ -2,13 +2,10 @@ var game;
 createGame();
 
 function getGameParams() {
-    var select = document.getElementById("difficulty");
-    var params = select.options[select.selectedIndex].value;
-    params = params.split(",");
     return {
-        height: params[0],
-        width: params[1],
-        mines: params[2]
+        height: 12,
+        width: 12,
+        mines: 15,
     };
 }
 
@@ -43,12 +40,12 @@ function createGame() {
         time = parseTime(time);
         var status = document.getElementById("status");
         status.className = "status status-win";
-        status.textContent = "Победа! За " + time + " мс";
+        status.textContent = "Поздравляю! Твой приз ждёт тебя в самом вонючем месте в гардеробной!";
     });
     game.setOnGameOver(function () {
-        var status = document.getElementById("status");
-        status.className = "status status-gameover";
-        status.textContent = "Програв. Ещё?"
+        // var status = document.getElementById("status");
+        // status.className = "status status-gameover";
+        // status.textContent = "Програв. Ещё?"
     });
     game.setOnReset(function () {
         var status = document.getElementById("status");

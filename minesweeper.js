@@ -15,6 +15,9 @@ function Minesweeper(height, width, mines) {
     var animationQueue = createAnimationQueue(); //animation
     var callbacks = {};
 
+    var startPlayed = false;
+    var endPlayed = false;
+
     preloadImages('icons/fuse.svg', 'icons/face-smile.svg', 'icons/face-gameover.svg', 'icons/face-win.svg',
         'icons/face-reset.svg', 'icons/flag.svg', 'icons/cross.svg', 'icons/bomb.svg', 'icons/explosion.svg');
     resetGame();
@@ -156,6 +159,11 @@ function Minesweeper(height, width, mines) {
     }
 
     function cellListener(event) {
+        if (!startPlayed) {
+            sound.start();
+            startPlayed = true;
+        }
+
         event.preventDefault();
         if (!event.target.is("cell"))
             return;
@@ -303,6 +311,11 @@ function Minesweeper(height, width, mines) {
         face.win();
         sound.win();
 
+        if (!endPlayed) {
+            sound.end();
+            endPlayed = true;
+        }
+
         root.removeEventListener("click", cellListener);
         root.removeEventListener("contextmenu", cellListener);
         root.classList.add("inactive");
@@ -411,7 +424,7 @@ function Minesweeper(height, width, mines) {
         var field = root.getElementsByClassName("field")[0];
 
         face.onclick = function () {
-            if (face.classList.contains("face-gameover") || face.classList.contains("face-win")) {
+            if (face.classList.contains("face-gameover") || face.classList.contains("face-win")) {                
                 resetGame();
                 return;
             }
@@ -451,12 +464,15 @@ function Minesweeper(height, width, mines) {
         return {
             smile: function () {
                 set("face-smile");
+                tooltip.hidden = true;
             },
             gameover: function () {
                 set("face-gameover");
+                tooltip.hidden = false;
             },
             win: function () {
                 set("face-win");
+                tooltip.hidden = true;
             }
         }
     }
@@ -465,6 +481,8 @@ function Minesweeper(height, width, mines) {
     function createSounds() {
         var bomb = new SoundFilter("audio/bomb.mp3", 100);
         var win = new Audio("audio/win.mp3");
+        var start = new Audio("audio/start.mp3");
+        var end = new Audio("audio/end.mp3");
 
         return {
             bomb: function () {
@@ -473,6 +491,14 @@ function Minesweeper(height, width, mines) {
             win: function () {
                 win.currentTime = 0;
                 win.play();
+            },
+            start: function() {
+                start.currentTime = 0;
+                start.play();
+            },
+            end: function() {
+                end.currentTime = 0;
+                end.play();
             }
         }
     }

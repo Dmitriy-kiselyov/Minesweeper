@@ -10,30 +10,25 @@
 <body>
 
 <div class="content">
-    <div class="header">СапЁр</div>
-    <div class="settings">
-        <div class="settings_block">
-            <label for="difficulty" class="label">Выберите сложность</label>
-            <select class="select" id="difficulty" onchange="createGame(); updateGameParamsInfo()">
-                <option selected value="8,8,10" info="8x8, 10 мин">Изи</option>
-                <option value="16,16,40" info="16x16, 40 мин">Рил ток</option>
-                <option value="16,30,99" info="16x30, 99 мин">Синк эбаут ит</option>
-            </select>
-            <span class="info" id="info">8x8, 10 мин</span>
-        </div>
-        <div class="settings_block">
-            <label for="size" class="label">Размер</label>
-            <select class="select" id="size" onchange="changeGameSize()">
-                <option value="20">Малютка</option>
-                <option value="25">Небольшой</option>
-                <option selected value="30">Средний</option>
-                <option value="35">Большой</option>
-                <option value="40">Огромный</option>
-            </select>
+    <div class="header">Сапёр</div>
+    <div class="header2">Пройди игру, чтобы получить подарок</div>
+
+    <div class="game-field">
+        <div class="game-side"></div>
+        <div class="game-wrapper" id="game-wrapper"></div>
+        <div class="game-side">
+            <div>
+                <label for="size" class="label">Размер</label>
+                <select class="select" id="size" onchange="changeGameSize()">
+                    <option value="30">Средний</option>
+                    <option selected value="35">Большой</option>
+                    <option value="40">Огромный</option>
+                </select>
+            </div>
+            <div>Правая кнопка мыши – поставить метку, что это клетка с бомбой.</div>
+            <div>Левая кнопка мыши по клетке с цифрой – открыть рядом лежащие клетки, но только если количество флажков вокруг совпадает с этой цифрой.</div>
         </div>
     </div>
-
-    <div class="game-wrapper" id="game-wrapper"></div>
     <p class="status status-gameover" id="status">&nbsp;</p>
 </div>
 
