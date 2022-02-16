@@ -18,8 +18,10 @@ function Minesweeper(height, width, mines) {
     var startPlayed = false;
     var endPlayed = false;
 
-    preloadImages('icons/fuse.svg', 'icons/face-smile.svg', 'icons/face-gameover.svg', 'icons/face-win.svg',
-        'icons/face-reset.svg', 'icons/flag.svg', 'icons/cross.svg', 'icons/bomb.svg', 'icons/explosion.svg');
+    preloadIcons(
+        'fuse.svg', 'flag.svg', 'cross.svg', 'bomb.svg', 'explosion.svg',
+        'face/annoying.png', 'face/cool.png', 'face/cry.png', 'face/dead (1).png', 'face/dead.png', 'face/laughing.png', 'face/love.png', 'face/sad.png'
+    );
     resetGame();
 
     function createMatrix(height, width) {
@@ -423,20 +425,30 @@ function Minesweeper(height, width, mines) {
         var tooltip = root.getElementsByClassName("reset_tooltip")[0];
         var field = root.getElementsByClassName("field")[0];
 
+        // https://www.flaticon.com/packs/cat-emoticons
+        var statusMap = {
+            smile: ['cool.png'],
+            gameover: ['dead.png', 'cry.png', 'dead (1).png', 'sad.png'],
+            win: ['laughing.png', 'love.png'],
+            reset: ['annoying.png'],
+        };
+        var faceStatus;
+        set('smile');
+
         face.onclick = function () {
-            if (face.classList.contains("face-gameover") || face.classList.contains("face-win")) {                
+            if (faceStatus === "gameover" || faceStatus === "win") {                
                 resetGame();
                 return;
             }
 
             //game is not over yet, ask again
             tooltip.hidden = false;
-            set("face-reset");
+            set("reset");
 
             var onclick = this.onclick;
 
             function restore() {
-                set("face-smile");
+                set("smile");
                 tooltip.hidden = true;
                 face.onclick = onclick;
                 field.removeEventListener("click", restore);
@@ -457,21 +469,25 @@ function Minesweeper(height, width, mines) {
             field.addEventListener("contextmenu", restore);
         };
 
-        function set(className) {
-            face.className = "picture picture-face " + className;
+        function set(status) {
+            faceStatus = status;
+            
+            var images = statusMap[status];
+            var index = Math.floor(Math.random() * images.length);
+            face.style.backgroundImage = 'url(icons/face/' + images[index] + ')';
         }
 
         return {
             smile: function () {
-                set("face-smile");
+                set("smile");
                 tooltip.hidden = true;
             },
             gameover: function () {
-                set("face-gameover");
+                set("gameover");
                 tooltip.hidden = false;
             },
             win: function () {
-                set("face-win");
+                set("win");
                 tooltip.hidden = true;
             }
         }
@@ -481,8 +497,8 @@ function Minesweeper(height, width, mines) {
     function createSounds() {
         var bomb = new SoundFilter("audio/bomb.mp3", 100);
         var win = new Audio("audio/win.mp3");
-        var start = new Audio("audio/start.mp3");
-        var end = new Audio("audio/end.mp3");
+        // var start = new Audio("audio/start.mp3");
+        // var end = new Audio("audio/end.mp3");
 
         return {
             bomb: function () {
@@ -493,12 +509,12 @@ function Minesweeper(height, width, mines) {
                 win.play();
             },
             start: function() {
-                start.currentTime = 0;
-                start.play();
+                // start.currentTime = 0;
+                // start.play();
             },
             end: function() {
-                end.currentTime = 0;
-                end.play();
+                // end.currentTime = 0;
+                // end.play();
             }
         }
     }
@@ -536,9 +552,9 @@ function SoundFilter(sound, time) {
     }
 }
 
-function preloadImages() {
-    Array.prototype.forEach.call(arguments, function (imagePath) {
+function preloadIcons() {
+    Array.prototype.forEach.call(arguments, function (imageName) {
         var image = new Image();
-        image.src = imagePath;
+        image.src = 'icons/' + imageName;
     });
 }

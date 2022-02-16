@@ -4,7 +4,7 @@
     border-radius: 0.2em;
     padding: 0.15em;
 
-    transition: font-size 100ms ease;
+    /* transition: font-size 100ms ease; */
 
     /*size for all elements*/
     font-size: 30px;
@@ -117,7 +117,7 @@
     text-align: center;
     line-height: 1.1em;
 
-    transition: background-color 300ms, box-shadow 300ms;
+    /* transition: background-color 300ms, box-shadow 300ms; */
 }
 
 .minesweeper .cell.unknown {

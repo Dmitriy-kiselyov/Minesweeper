@@ -1,3 +1,14 @@
+html {
+    min-height: 100%;
+    height: 0;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
 body::before {
     content: '';
     position: absolute;
@@ -6,12 +17,14 @@ body::before {
     filter: blur(3px);
     inset: 0;
     pointer-events: none;
-    background-image: url(icons/carrot.png);
-    background-size: 256px;
+    background-image: url(icons/back.jpg);
+    background-size: cover;
+    background-position: 50%;
 }
 
 .content {
     font-size: 100%;
+    padding: 10px;
     font-family: monospace;
 }
 
@@ -21,14 +34,8 @@ body::before {
     font-weight: bold;
 }
 
-.header2 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.header2:before,
-.header2:after {
+.header:before,
+.header:after {
     content: '';
     width: 48px;
     height: 48px;
@@ -36,12 +43,12 @@ body::before {
     display: inline-block;
 }
 
-.header2:before {
+.header:before {
     background-image: url('./icons/cat.png');
     margin-right: 20px;
 }
 
-.header2:after {
+.header:after {
     background-image: url('./icons/rabbit.png');
     margin-left: 20px;
     transform: scaleX(-1);
@@ -67,6 +74,12 @@ body::before {
     flex-shrink: 0;
 }
 
+.settings {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 .settings_block {
     display: inline-block;
     text-align: left;
@@ -88,7 +101,7 @@ body::before {
 }
 
 .select {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
 }
 
 .info {
@@ -96,26 +109,12 @@ body::before {
     color: gray;
 }
 
+.game-info {
+    width: 50%;
+    font-size: 1.5em;
+    margin: 20px auto 0;
+}
+
 .game-wrapper {
     text-align: center;
-}
-
-.status {
-    vertical-align: middle;
-    font-style: italic;
-    font-size: 1.5rem;
-    text-align: center;
-
-    margin-top: 20px;
-    margin-bottom: 0;
-}
-
-.status-win {
-    font-weight: bold;
-    font-size: 2.5em;
-    color: green;
-}
-
-.status-gameover {
-    color: darkred;
 }

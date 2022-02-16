@@ -2,10 +2,14 @@ var game;
 createGame();
 
 function getGameParams() {
+    var select = document.getElementById("difficulty");
+    var params = select.options[select.selectedIndex].value;
+    params = params.split(",");
+
     return {
-        height: 12,
-        width: 12,
-        mines: 15,
+        height: params[0],
+        width: params[1],
+        mines: params[2]
     };
 }
 
@@ -35,23 +39,6 @@ function createGame() {
     var params = getGameParams();
     game = new Minesweeper(params.height, params.width, params.mines);
 
-    //listeners
-    game.setOnWin(function (time) {
-        time = parseTime(time);
-        var status = document.getElementById("status");
-        status.className = "status status-win";
-        status.textContent = "Поздравляю! Твой приз ждёт тебя в самом вонючем месте в гардеробной!";
-    });
-    game.setOnGameOver(function () {
-        // var status = document.getElementById("status");
-        // status.className = "status status-gameover";
-        // status.textContent = "Програв. Ещё?"
-    });
-    game.setOnReset(function () {
-        var status = document.getElementById("status");
-        status.innerHTML = "&nbsp;"
-    });
-
     //put into DOM
     var root = game.getElement();
     root.id = "game";
@@ -61,7 +48,4 @@ function createGame() {
 
     container.appendChild(root);
     changeGameSize();
-
-    //clear status
-    document.getElementById("status").innerHTML = "&nbsp;";
 }
